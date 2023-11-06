@@ -1,0 +1,44 @@
+<%- include('../Includes/begin.ejs') %>
+
+<%- include('../Includes/student_nav.ejs') %>
+
+
+<section id="content-wrapper">
+    <main role="main" class="pt-5 main">
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                style="height: 100px; background-size: cover; background-position: center top;">
+                <!-- Header container -->
+            </div>
+            <!-- Page content -->
+            <div class="container-fluid mt--7">
+                <div class="row">
+                    <div class="col-xl-12 order-xl-1">
+                        <div class="card bg-secondary shadow">
+                            <div class="card-header bg-white border-0">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <h3 class="mb-0">Fee History</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="form-control-label mb-5"><b>NAME : </b>
+                                    <%= studentData.s_name %>
+                                    <br/><b>Date of Payment : </b> <%= feeData.date %>
+                                    <br/><b>Fee ID : </b> <%= feeData.fee_id %>
+                                    <br/><b>Fee Type : </b> <%= feeData.fee_type %>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </main>
+</section>
+
+<%- include('../Includes/student_end.ejs') %>
