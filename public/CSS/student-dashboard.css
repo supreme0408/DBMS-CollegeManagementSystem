@@ -62,7 +62,7 @@
 .sidebar-nav > li.active > a {
   text-decoration: none;
   color: #fff;
-  background: #f8be12;
+  background: blueviolet;
 }
 
 .sidebar-nav > li > a i.fa {
@@ -94,7 +94,7 @@
 }
 
 #navbar-wrapper .navbar a:hover {
-  color: #f8be12;
+  color: blueviolet;
 }
 
 #content-wrapper {
