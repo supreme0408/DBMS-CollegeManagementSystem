@@ -34,7 +34,7 @@ function sendBirthdayEmail(name, email) {
     from: 'freezebot720@gmail.com',
     to: email,
     subject: 'Happy Birthday!',
-    text: `Dear ${name},\n\nHappy Birthday! 🎉🎂\n\nBest wishes from your alma mater.`
+    text: `Dear ${name},\n\nHappy Birthday! 🎉🎂\n\nHope You are doing well.\nBest wishes from your alma mater.`
   };
 
   mailgun.messages().send(mailgunData, (error, body) => {
