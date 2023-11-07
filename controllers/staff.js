@@ -2,9 +2,11 @@ const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-const mailgun = require('mailgun-js');
 const DOMAIN = process.env.DOMAIN_NAME;
-const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN });
+const mailgun = require('mailgun-js')({
+  apiKey: process.env.MAILGUN_API_KEY,
+  domain: process.env.DOMAIN_NAME,
+});
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -252,6 +254,82 @@ exports.getLogout = (req, res, next) => {
   req.flash('success_msg', 'You are logged out');
   res.redirect('/staff/login');
 };
+
+//Get All test
+exports.getAllTest = async(req,res,next)=> {
+ const testinfo= await queryParamPromise('SELECT test_id,course_id,date,time,location,instructions,status FROM Test t JOIN class c ON t.course_id=c.c_id WHERE c.st_id=?',[req.user]);
+
+  res.render('Staff/getAllTest', {
+    testinfo,
+    page_name: 'getTest',
+  });
+};
+// Create Test
+// Handler to render the page for creating a new test
+exports.getCreateTest = async (req, res, next) => {
+  // Fetch data needed for the test creation form
+  // const departments = await zeroParamPromise('SELECT * FROM department');
+  // const courses = await zeroParamPromise('SELECT * FROM course');
+
+  const classTaken = await queryParamPromise('SELECT * FROM class WHERE st_id=?',[req.user]);
+  // console.log(classTaken);
+
+  res.render('Staff/createTest', {
+    classTaken,
+    page_name: 'createTest',
+  });
+};
+
+// Handler to handle the submission of the new test form
+exports.postCreateTest = async (req, res, next) => {
+  try {
+    // Extract test details from the request body
+    // console.log(req.body);
+    const {course, testdate, testtime, location, instructions } = req.body;
+
+    // Insert the test details into the Test table
+    const sql = 'INSERT INTO Test SET ?';
+    await queryParamPromise(sql, {
+      course_id: course,
+      date:testdate,
+      time:testtime,
+      location:location,
+      instructions:instructions,
+    });
+    console.log("query run");
+    const sql2='SELECT distinct(s.email) From student s JOIN course c on s.dept_id=c.dept_id JOIN test t on t.course_id=c.c_id;';
+    const emails= await zeroParamPromise(sql2);
+    // // Send an email to notify about the new test
+    for(const t of emails){
+    const data = {
+      from: 'batabot720@gmail.com.com', // Your email address
+      to: t.email, // Recipient's email address
+      subject: 'New Test Created',
+      text: 'A new test has been created for course '+course+'. Date and time: ' + testdate + ' ' + testtime+'.\nInstruction: "'+instructions+'".\n\nAll the Best!!',
+    };
+
+    mailgun.messages().send(data, (error, body) => {
+      if (error) {
+        // Handle email sending error
+        console.error('Error sending email:', error);
+      } else {
+        // Email sent successfully
+        console.log('Email sent:', body);
+      }
+    });
+  }
+    // Flash a success message and redirect to a success page
+    req.flash('success_msg', 'Test added successfully');
+    return res.redirect('/Staff/getAllTest'); // Redirect to the appropriate success page
+
+  } catch (err) {
+    // Handle errors, e.g., display an error message and redirect to an error page
+    console.error('Error inserting test:', err);
+    req.flash('error_msg', 'Failed to add the test');
+    return res.redirect('/error403'); // Redirect to the appropriate error page
+  }
+};
+
 
 // FORGOT PASSWORD
 exports.getForgotPassword = (req, res, next) => {

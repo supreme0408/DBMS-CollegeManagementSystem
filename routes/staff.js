@@ -30,6 +30,11 @@ router.get('/student-report', requireAuth, controller.getStudentReport);
 router.get('/class-report', requireAuth, controller.selectClassReport);
 router.get('/class-report/class/:id', requireAuth, controller.getClassReport);
 
+router.get('/StaffCreateTest', requireAuth, controller.getCreateTest);
+router.post('/StaffCreateTest', requireAuth, controller.postCreateTest);
+
+router.get('/getAllTest',requireAuth,controller.getAllTest);
+
 // 1.5 FORGET PASSWORD
 router.get('/forgot-password', forwardAuth, controller.getForgotPassword);
 router.put('/forgot-password', controller.forgotPassword);

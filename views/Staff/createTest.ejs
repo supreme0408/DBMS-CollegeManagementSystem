@@ -1,0 +1,124 @@
+<%- include('../Includes/begin.ejs') %>
+
+<link rel="stylesheet" href="../../CSS/admin-dashboard.css">
+
+<div class="container-fluid">
+
+    <div id="wrapper" style="margin-left: -18%;">
+
+        <%- include('../Includes/staff_nav.ejs') %>
+
+        <section id="content-wrapper">
+            <main role="main" class="pt-5 main">
+
+                <div class="main-content">
+                    <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                        style="height: 100px; background-size: cover; background-position: center top;">
+                    </div>
+                    <div class="container-fluid mt--7">
+                        <div class="row">
+                            <div class="col-xl-12 order-xl-1">
+                                <div class="card bg-secondary shadow">
+                                    <div class="card-header bg-white border-0">
+                                        <div class="row align-items-center">
+                                            <div class="col-8">
+                                                <h3 class="mb-1">Schedule Test</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <form action="/staff/StaffCreateTest" method="POST">
+                                            <h6 class="heading-small text-muted mb-4">Test Information</h6>
+                                            <div class="pl-lg-4">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="form-control-label"
+                                                                for="course">Course ID</label>
+                                                            <select class="form-control" id="course" name="course"
+                                                                required>
+                                                                <% for(const classT of classTaken) { %>
+                                                                <option>
+                                                                    <%= classT.c_id %>
+                                                                </option>
+                                                                <% } %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="form-control-label"
+                                                                for="course">Semester</label>
+                                                            <select class="form-control" id="semester" name="semester"
+                                                                required>
+                                                                <% for(const classT of classTaken) { %>
+                                                                <option>
+                                                                    <%= classT.semester %>
+                                                                </option>
+                                                                <% } %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group focused">
+                                                            <label class="form-control-label" for="dob">Test date</label>
+                                                            <input type="text" id="testdate" name="testdate"
+                                                                class="form-control form-control-alternative"
+                                                                placeholder="YYYY-MM-DD" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group focused">
+                                                            <label class="form-control-label" for="dob">Test time</label>
+                                                            <input type="time" id="testtime" name="testtime"
+                                                                class="form-control form-control-alternative"
+                                                                placeholder="HH:MM" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group focused">
+                                                            <label class="form-control-label" for="dob">Location</label>
+                                                            <input type="text" id="location" name="location"
+                                                                class="form-control form-control-alternative"
+                                                                placeholder="Room No/Home" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group focused">
+                                                            <label class="form-control-label" for="dob">Instructions</label>
+                                                            <input type="text" id="instructions" name="instructions"
+                                                                class="form-control form-control-alternative"
+                                                                placeholder="" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="my-4">
+                                            <button type="submit" class="btn btn-primary btn-block">Create Test</button>
+                                        </form>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </main>
+        </section>
+
+    </div>
+
+</div>
+
+
+
+<%- include('../Includes/staff_end.ejs') %>
