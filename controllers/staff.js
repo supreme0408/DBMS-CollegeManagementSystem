@@ -99,13 +99,19 @@ exports.getTimeTable = async (req, res, next) => {
     'select * from time_table where st_id = ? order by day, start_time',
     [req.user]
   );
-  console.log(timeTableData);
+  const classesData = await queryParamPromise(
+    'SELECT c.c_id,s.st_name,c.name FROM course c JOIN class c1 on c.c_id = c1.c_id JOIN staff s on s.st_id=c1.st_id WHERE s.st_id=?',
+    [req.user]
+  );
+  console.log(classesData);
+  // console.log(timeTableData);
   const startTimes = ['10:00', '11:00', '12:00', '13:00'];
   const endTimes = ['11:00', '12:00', '13:00', '14:00'];
   const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   res.render('Staff/timetable', {
     page_name: 'timetable',
     timeTableData,
+    classesData,
     startTimes,
     staffData,
     endTimes,

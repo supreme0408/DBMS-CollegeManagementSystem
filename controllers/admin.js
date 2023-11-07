@@ -353,6 +353,7 @@ exports.postAddStaff = async (req, res, next) => {
       contact: contact,
       dept_id: department,
       password: hashedPassword,
+      pos:'faculty',
     });
     req.flash('success_msg', 'Staff added successfully');
     res.redirect('/admin/getAllStaffs');
