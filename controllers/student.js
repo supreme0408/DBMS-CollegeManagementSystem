@@ -257,6 +257,16 @@ exports.getTimeTable = async (req, res, next) => {
   });
 };
 
+//Get All test
+exports.getAllTest = async(req,res,next)=> {
+  const testinfo= await queryParamPromise('SELECT test_id,course_id,date,time,location,instructions,status FROM Test t JOIN class c ON t.course_id=c.c_id WHERE c.st_id=?',[req.user]);
+ 
+   res.render('Studnet/viewAllTest', {
+     testinfo,
+     page_name: 'viewTest',
+   });
+ };
+
 exports.getFeeHistory = async (req,res,next) =>{
   const sql1 = 'SELECT * FROM student WHERE s_id = ?';
   const studentData = (await queryParamPromise(sql1, [req.user]))[0];
@@ -269,6 +279,15 @@ exports.getFeeHistory = async (req,res,next) =>{
     studentData,
     feeData,
   });
+};
+
+exports.getMarksDetails= async (req,res,next) => {
+  const marksInfo= await queryParamPromise('SELECT * from marks where s_id=?;',[req.user]);
+ 
+   res.render('Student/viewMarks', {
+     marksInfo,
+     page_name: 'viewMarks',
+   });
 };
 
 exports.getLogout = (req, res, next) => {

@@ -17,6 +17,7 @@ router.post('/selectAttendance', requireAuth, controller.postSelectAttendance);
 router.get('/timetable', requireAuth, controller.getTimeTable);
 
 router.get('/feehistory',requireAuth,controller.getFeeHistory);
+router.get('/viewmarks',requireAuth,controller.getMarksDetails);
 
 router.get('/logout', requireAuth, controller.getLogout);
 
