@@ -31,7 +31,7 @@ const db = mysql.createConnection({
 // Function to send birthday emails using Mailgun.
 function sendBirthdayEmail(name, email) {
   const mailgunData = {
-    from: 'freezebot720@gmail.com',
+    from: 'batabot720@gmail.com',
     to: email,
     subject: 'Happy Birthday!',
     text: `Dear ${name},\n\nHappy Birthday! 🎉🎂\n\nHope You are doing well.\nBest wishes from your alma mater.`
@@ -47,7 +47,7 @@ function sendBirthdayEmail(name, email) {
 }
 
 // Schedule the task to run daily at MM:HH any day
-schedule.scheduleJob('30 12 * * *', async () => {
+schedule.scheduleJob('35 20 * * *', async () => {
   // Get today's date.
   const today = new Date();
 const day = today.getDate().toString().padStart(2, '0');
